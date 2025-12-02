@@ -12,10 +12,13 @@ const arrayFilm = [
 ];
 
 function App() {
+  /* Variabili di stato */
   const [valueSelect, SetValueSelect] = useState("");
-
   const [filmArray, SetFilmArray] = useState(arrayFilm);
+  const [inputTitolo, SetInputTitolo] = useState("");
+  const [inputGenere, SetInputGenere] = useState("");
 
+  /* use effect per filtrare (genere) */
   useEffect(() => {
     if (valueSelect === "") {
       SetFilmArray(arrayFilm);
@@ -26,6 +29,23 @@ function App() {
       SetFilmArray(newArrayFilter);
     }
   }, [valueSelect]);
+  /* use effect per aggiungere un film */
+
+  function aggiungiFilm(e) {
+    e.preventDefault();
+    if (inputTitolo === "" && inputGenere === "") {
+      return;
+    }
+    SetFilmArray((prevArray) => [
+      ...prevArray,
+      {
+        title: inputTitolo,
+        genre: inputGenere,
+      },
+    ]);
+    SetInputTitolo("");
+    SetInputGenere("");
+  }
 
   return (
     <>
@@ -56,6 +76,36 @@ function App() {
             </div>
           );
         })}
+
+        <form className="mt-5" onSubmit={aggiungiFilm}>
+          <label htmlFor="titolo" className="form-label fs-3">
+            titolo:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="titolo"
+            value={inputTitolo}
+            onChange={(e) => {
+              SetInputTitolo(e.target.value);
+            }}
+          ></input>
+          <label htmlFor="Genere" className="form-label fs-3">
+            Genere:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="Genere"
+            value={inputGenere}
+            onChange={(e) => {
+              SetInputGenere(e.target.value);
+            }}
+          ></input>
+          <button type="submit" className="btn btn-primary mt-5 ">
+            Aggiungi
+          </button>
+        </form>
       </main>
     </>
   );
