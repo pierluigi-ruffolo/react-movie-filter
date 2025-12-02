@@ -14,21 +14,31 @@ const arrayFilm = [
 function App() {
   /* Variabili di stato */
   const [valueSelect, SetValueSelect] = useState("");
+  const [selectValueTitolo, SetselectValueTitolo] = useState("");
   const [filmArray, SetFilmArray] = useState(arrayFilm);
   const [inputTitolo, SetInputTitolo] = useState("");
   const [inputGenere, SetInputGenere] = useState("");
   const [allFilms, SetAllFilms] = useState(arrayFilm);
+
   /* use effect per filtrare (genere) */
+
   useEffect(() => {
-    if (valueSelect === "") {
-      SetFilmArray(allFilms);
-    } else {
-      const newArrayFilter = allFilms.filter((element) => {
-        return element.genre === valueSelect;
+    let filteredList = allFilms;
+
+    if (selectValueTitolo !== "") {
+      filteredList = filteredList.filter((film) => {
+        return film.title === selectValueTitolo;
       });
-      SetFilmArray(newArrayFilter);
     }
-  }, [valueSelect, allFilms]);
+
+    if (valueSelect !== "") {
+      filteredList = filteredList.filter((film) => {
+        return film.genre === valueSelect;
+      });
+    }
+
+    SetFilmArray(filteredList);
+  }, [valueSelect, selectValueTitolo, allFilms]);
 
   function aggiungiFilm(e) {
     e.preventDefault();
@@ -52,6 +62,7 @@ function App() {
         <h1 className="text-center">FILM</h1>
       </header>
       <main className="container mt-5">
+        {/* select genere */}
         <select
           value={valueSelect}
           className="form-select fs-4"
@@ -64,6 +75,22 @@ function App() {
           <option value="Thriller">Thriller</option>
           <option value="Romantico">Romantico</option>
           <option value="Azione">Azione</option>
+        </select>
+        {/*  select titolo*/}
+        <select
+          value={selectValueTitolo}
+          className="form-select fs-4 mt-4"
+          onChange={(event) => {
+            SetselectValueTitolo(event.target.value);
+          }}
+        >
+          <option value="">seleziona per titolo</option>
+          <option value="Inception">Inception</option>
+          <option value="Il Padrino">Il Padrino</option>
+          <option value="Titanic">Titanic</option>
+          <option value="Batman">Batman</option>
+          <option value="Interstellar">Interstellar</option>
+          <option value="Pulp Fiction">Pulp Fiction</option>
         </select>
         {filmArray.map((film, index) => {
           return (
