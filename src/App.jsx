@@ -17,26 +17,25 @@ function App() {
   const [filmArray, SetFilmArray] = useState(arrayFilm);
   const [inputTitolo, SetInputTitolo] = useState("");
   const [inputGenere, SetInputGenere] = useState("");
-
+  const [allFilms, setAllFilms] = useState(arrayFilm);
   /* use effect per filtrare (genere) */
   useEffect(() => {
     if (valueSelect === "") {
-      SetFilmArray(arrayFilm);
+      SetFilmArray(allFilms);
     } else {
-      const newArrayFilter = arrayFilm.filter((element) => {
+      const newArrayFilter = allFilms.filter((element) => {
         return element.genre === valueSelect;
       });
       SetFilmArray(newArrayFilter);
     }
-  }, [valueSelect]);
-  /* use effect per aggiungere un film */
+  }, [valueSelect, allFilms]);
 
   function aggiungiFilm(e) {
     e.preventDefault();
     if (inputTitolo === "" && inputGenere === "") {
       return;
     }
-    SetFilmArray((prevArray) => [
+    setAllFilms((prevArray) => [
       ...prevArray,
       {
         title: inputTitolo,
