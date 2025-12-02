@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const ArrayFilm = [
+const arrayFilm = [
   { title: "Inception", genre: "Fantascienza" },
   { title: "Il Padrino", genre: "Thriller" },
   { title: "Titanic", genre: "Romantico" },
@@ -14,13 +14,13 @@ const ArrayFilm = [
 function App() {
   const [valueSelect, SetValueSelect] = useState("");
 
-  const [filmArray, SetFilmArray] = useState(ArrayFilm);
+  const [filmArray, SetFilmArray] = useState(arrayFilm);
 
   useEffect(() => {
     if (valueSelect === "") {
-      SetFilmArray(ArrayFilm);
+      SetFilmArray(arrayFilm);
     } else {
-      const newArrayFilter = ArrayFilm.filter((element) => {
+      const newArrayFilter = arrayFilm.filter((element) => {
         return element.genre === valueSelect;
       });
       SetFilmArray(newArrayFilter);
