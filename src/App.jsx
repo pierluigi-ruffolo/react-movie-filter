@@ -17,7 +17,7 @@ function App() {
   const [filmArray, SetFilmArray] = useState(arrayFilm);
   const [inputTitolo, SetInputTitolo] = useState("");
   const [inputGenere, SetInputGenere] = useState("");
-  const [allFilms, setAllFilms] = useState(arrayFilm);
+  const [allFilms, SetAllFilms] = useState(arrayFilm);
   /* use effect per filtrare (genere) */
   useEffect(() => {
     if (valueSelect === "") {
@@ -35,7 +35,7 @@ function App() {
     if (inputTitolo === "" && inputGenere === "") {
       return;
     }
-    setAllFilms((prevArray) => [
+    SetAllFilms((prevArray) => [
       ...prevArray,
       {
         title: inputTitolo,
@@ -59,7 +59,7 @@ function App() {
             SetValueSelect(event.target.value);
           }}
         >
-          <option value="">seleziona</option>
+          <option value="">seleziona per Genere</option>
           <option value="Fantascienza">Fantascienza</option>
           <option value="Thriller">Thriller</option>
           <option value="Romantico">Romantico</option>
